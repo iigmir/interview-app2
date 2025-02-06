@@ -1,0 +1,20 @@
+{
+  "name": "interview-app2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "npm run build && mocha dist/test",
+    "build": "tsc",
+    "print": "npm test > result.txt && npm start >> result.txt"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.13.1",
+    "mocha": "^11.1.0",
+    "typescript": "^5.7.3"
+  }
+}
