@@ -73,6 +73,12 @@ export function DecimalToAZ52(dec: number): string {
     while( num > 0 ) {
         const remainder = num % BASE_RADIX;
         result = KEYS[remainder] + result;
+        // In decical sense:
+        // Math.floor(123456/10) => 12345
+        // Math.floor(12345 /10) => 1234
+        // Math.floor(1234  /10) => 123
+        // We can threrfore use Math.floor to increse a radix,
+        // even if the radix is 52 or whatever
         num = Math.floor(num / BASE_RADIX);
     }
     return result;
