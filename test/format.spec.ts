@@ -23,7 +23,7 @@ describe("Format", () => {
         });
     });
     describe("不做單位換算的數值，直接轉爲字串即可", () => {
-        it("< 1000", () => {
+        it("< 1,000", () => {
             assert.strictEqual( Format(1.23), "1.23" );
             assert.strictEqual( Format(0), "0" );
             assert.strictEqual( Format(999), "999" );
