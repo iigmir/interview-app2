@@ -2,19 +2,13 @@ import assert from "assert";
 import { Format, FindLimitIndex } from "../src/format";
 
 describe("FindLimitIndex", () => {
-    describe("gets correct value under 999", () => {
-        // 123K
-        it("123456", () => { assert.strictEqual( FindLimitIndex(123456), 3 ); });
-        // 999B
-        it("999000000000", () => { assert.strictEqual( FindLimitIndex(999000000000), 1 ); });
-        // 12.3T
-        it("12345000000000", () => { assert.strictEqual( FindLimitIndex(12345000000000), 0 ); });
-        // 123M
-        it("123456000", () => { assert.strictEqual( FindLimitIndex(123456000), 2 ); });
-        // 12.3B
-        it("12345000000", () => { assert.strictEqual( FindLimitIndex(12345000000), 1 ); });
-        // 1.23T
-        it("1230000000000", () => { assert.strictEqual( FindLimitIndex(1230000000000), 0 ); });
+    describe("gets correct value index", () => {
+        it("123456 to 123K", () => { assert.strictEqual( FindLimitIndex(123456), 3 ); });
+        it("999000000000 to 999B", () => { assert.strictEqual( FindLimitIndex(999000000000), 1 ); });
+        it("12345000000000 to 12.3T", () => { assert.strictEqual( FindLimitIndex(12345000000000), 0 ); });
+        it("123456000 to 123M", () => { assert.strictEqual( FindLimitIndex(123456000), 2 ); });
+        it("12345000000 to 12.3B", () => { assert.strictEqual( FindLimitIndex(12345000000), 1 ); });
+        it("1230000000000 to 1.23T", () => { assert.strictEqual( FindLimitIndex(1230000000000), 0 ); });
     });
 });
 
