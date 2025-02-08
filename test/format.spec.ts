@@ -33,13 +33,17 @@ describe("Format", () => {
         // ex. 1.12K 11.2K 111K
         it("1.23K", () => { assert.strictEqual( Format(1230), "1.23K" ); });
         it("12.3M", () => { assert.strictEqual( Format(12345000), "12.3M" ); });
-        it("123T", () => { assert.strictEqual( Format(123456000000000), "123T" ); });
+        it("123T", () => {
+            assert.strictEqual( Format(123456000000000), "123T" );
+        });
+        it("Other 12.3", () => {
+            assert.strictEqual( Format(12345000000000), "12.3T" );
+            assert.strictEqual( Format(12345000000), "12.3B" );
+        });
         it("other", () => {
             assert.strictEqual( Format(123456), "123K" );
             assert.strictEqual( Format(999000000000), "999B" );
-            assert.strictEqual( Format(12345000000000), "12.3T" );
             assert.strictEqual( Format(123456000), "123M" );
-            assert.strictEqual( Format(12345000000), "12.3B" );
             assert.strictEqual( Format(1230000000000), "1.23T" );
         });
     });
