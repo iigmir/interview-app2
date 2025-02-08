@@ -8,9 +8,22 @@ const KEY_TABLE = [
 const BASIC_RANGE = 1000;
 
 export function FindLimitIndex(num: number) {
-    return KEY_TABLE.findIndex(
-        item => (item.value * BASIC_RANGE - 1) > num && (item.value / BASIC_RANGE) < num
-    );
+    // Iterate through the KEY_TABLE in reverse order
+    // to find the appropriate index
+    for (let i = 0; i < KEY_TABLE.length; i++) {
+        if (num >= KEY_TABLE[i].value) {
+            // Return the index of the first unit
+            // that is less than or equal to num
+            return i; 
+        }
+    }
+    // If num is less than 1K,
+    // return the length of the table
+    return KEY_TABLE.length; 
+}
+
+export function GetFitItem(limit_index: number) {
+    return KEY_TABLE[limit_index];
 }
 
 export function Format(num: number): string {
@@ -26,7 +39,7 @@ export function Format(num: number): string {
         return String(num);
     }
     // And now let's parse it
-    const fit_item = KEY_TABLE[limit_index];
+    const fit_item = GetFitItem(limit_index);
     const parse_float = (input: number): number => {
         const int = String(input).slice(0, -3);
         const dec = String(input).slice(-3);
