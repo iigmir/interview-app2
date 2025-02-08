@@ -16,7 +16,7 @@ describe("Format", () => {
     describe(">= 1,000, < 1,000,000,000,000,000 的數值需要做單位換算", () => {
         it("1000", () => { assert.strictEqual( Format(1000), "1K" ); });
         it("1000000", () => { assert.strictEqual( Format(1000000), "1M" ); });
-        it("1000000000", () => { assert.strictEqual( Format(1000), "1B" ); });
+        it("1000000000", () => { assert.strictEqual( Format(1000000000), "1B" ); });
         it("1000000000000", () => { assert.strictEqual( Format(1000000000000), "1T" ); });
     });
     describe("經過單位換算的數值，最多顯示 3 個數字， 小數位數不補 0", () => {
