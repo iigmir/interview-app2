@@ -1,5 +1,22 @@
 import assert from "assert";
-import { Format } from "../src/format";
+import { Format, FindLimitIndex } from "../src/format";
+
+describe("FindLimitIndex", () => {
+    describe("gets correct value under 999", () => {
+        // 123K
+        it("123456", () => { assert.strictEqual( FindLimitIndex(123456), 3 ); });
+        // 999B
+        it("999000000000", () => { assert.strictEqual( FindLimitIndex(999000000000), 1 ); });
+        // 12.3T
+        it("12345000000000", () => { assert.strictEqual( FindLimitIndex(12345000000000), 0 ); });
+        // 123M
+        it("123456000", () => { assert.strictEqual( FindLimitIndex(123456000), 2 ); });
+        // 12.3B
+        it("12345000000", () => { assert.strictEqual( FindLimitIndex(12345000000), 1 ); });
+        // 1.23T
+        it("1230000000000", () => { assert.strictEqual( FindLimitIndex(1230000000000), 0 ); });
+    });
+});
 
 describe("Format", () => {
     describe(">= 1,000, < 1,000,000,000,000,000 的數值需要做單位換算", () => {

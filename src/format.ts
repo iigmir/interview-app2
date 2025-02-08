@@ -7,6 +7,12 @@ const KEY_TABLE = [
 
 const BASIC_RANGE = 1000;
 
+export function FindLimitIndex(num: number) {
+    return KEY_TABLE.findIndex(
+        item => (item.value * BASIC_RANGE - 1) > num && (item.value / BASIC_RANGE) < num
+    );
+}
+
 export function Format(num: number): string {
     // Return the value as-is we don't calc
     const out_of_limit = num < 1000 || num > 1000000000000000;
@@ -15,11 +21,7 @@ export function Format(num: number): string {
     }
     // Detect which range des num belongs to
     // And if the index doesn't exist, return the value as-is
-    const limit_index = KEY_TABLE.findIndex(
-        item =>
-            (item.value * BASIC_RANGE - 1) > num &&
-            (item.value / BASIC_RANGE ) < num
-    );
+    const limit_index = FindLimitIndex(num);
     if( limit_index < 0 ) {
         return String(num);
     }
