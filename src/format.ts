@@ -26,6 +26,33 @@ export function GetFitItem(limit_index: number) {
     return KEY_TABLE[limit_index];
 }
 
+export const LimitToThree = (input: number): number => {
+    // Convert the number to a string to count significant figures
+    const str = input.toString();
+
+    // Check if the number is an integer
+    if (Number.isInteger(input)) {
+        return Math.floor(input); // Return the integer part
+    }
+
+    // Split the number into integer and decimal parts
+    const [int, dec] = str.split(".");
+
+    // If the integer part has 3 or more digits, return the integer part
+    if (int.length >= 3) {
+        return Math.floor(input);
+    }
+    
+    // If the decimal part has more than 3 digits,
+    // round to 3 decimal places
+    if (dec && dec.length > 3) {
+        // Round to 3 decimal places
+        return Math.floor(input * 1000) / 1000;
+    }
+    // Otherwise, return the input as is
+    return input;
+};
+
 export function Format(num: number): string {
     // Return the value as-is we don't calc
     const out_of_limit = num < 1000 || num > 1000000000000000;
@@ -46,5 +73,6 @@ export function Format(num: number): string {
         const formatted_float = int.replace(/\B(?=(\d{3})+(?!\d))/g, ".") || "0";
         return parseFloat(`${formatted_float}.${dec}`);
     };
-    return `${parse_float(num)}${fit_item.name}`;
+    const result_value = LimitToThree(parse_float(num));
+    return `${result_value}${fit_item.name}`;
 }

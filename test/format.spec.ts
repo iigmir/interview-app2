@@ -1,5 +1,5 @@
 import assert from "assert";
-import { Format, FindLimitIndex } from "../src/format";
+import { Format, FindLimitIndex, LimitToThree } from "../src/format";
 
 describe("FindLimitIndex", () => {
     describe("gets correct value index", () => {
@@ -9,6 +9,16 @@ describe("FindLimitIndex", () => {
         it("123456000 to 123M", () => { assert.strictEqual( FindLimitIndex(123456000), 2 ); });
         it("12345000000 to 12.3B", () => { assert.strictEqual( FindLimitIndex(12345000000), 1 ); });
         it("1230000000000 to 1.23T", () => { assert.strictEqual( FindLimitIndex(1230000000000), 0 ); });
+    });
+});
+
+describe("LimitToThree", () => {
+    describe("gets o only three bases", () => {
+        it("1 returns 1", () => { assert.strictEqual( LimitToThree(1), 1 ); });
+        it("1.23 returns 1.23", () => { assert.strictEqual( LimitToThree(1.23), 1.23 ); });
+        it("12.345 returns 12.3", () => { assert.strictEqual( LimitToThree(12.345), 12.3 ); });
+        it("123.456 returns 123", () => { assert.strictEqual( LimitToThree(123.456), 123 ); });
+        it("123.45 returns 123", () => { assert.strictEqual( LimitToThree(123.45), 123 ); });
     });
 });
 
