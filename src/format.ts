@@ -27,30 +27,26 @@ export function GetFitItem(limit_index: number) {
 }
 
 export const LimitToThree = (input: number): number => {
-    // Convert the number to a string to count significant figures
-    const str = input.toString();
+    const str = String(input);
 
-    // Check if the number is an integer
+    // 256 => 256
     if (Number.isInteger(input)) {
-        return Math.floor(input); // Return the integer part
+        return Math.floor(input);
     }
-
-    // Split the number into integer and decimal parts
     const [int, dec] = str.split(".");
 
-    // If the integer part has 3 or more digits, return the integer part
+    // 123.4 => 123
     if (int.length >= 3) {
         return Math.floor(input);
     }
-    
-    // If the decimal part has more than 3 digits,
-    // round to 3 decimal places
-    if (dec && dec.length > 3) {
-        // Round to 3 decimal places
-        return Math.floor(input * 1000) / 1000;
+
+    // "12.345" => "12.3"
+    let returned_dec = dec.slice(0, 3 - int.length); // Limit to 3 total digits
+    if (returned_dec === "") {
+        returned_dec = "0"; // If there's no decimal part, set it to "0"
     }
-    // Otherwise, return the input as is
-    return input;
+    
+    return parseFloat(`${int}.${returned_dec}`); 
 };
 
 export function Format(num: number): string {
